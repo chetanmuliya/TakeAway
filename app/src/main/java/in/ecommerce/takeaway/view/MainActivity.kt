@@ -1,11 +1,11 @@
-package `in`.ecommerce.takeaway
+package `in`.ecommerce.takeaway.view
 
 import `in`.ecommerce.takeaway.Common.Common
 import `in`.ecommerce.takeaway.Model.UserModel
+import `in`.ecommerce.takeaway.R
 import `in`.ecommerce.takeaway.Remote.ICloudFunctions
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import dmax.dialog.SpotsDialog
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.register_layout.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -76,7 +75,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun phoneLogin() {
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers!!).build(),
-            APP_REQUEST_CODE)
+            APP_REQUEST_CODE
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -158,5 +158,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun goToHomeActivity(userModel: UserModel?) {
         Common.current_user = userModel!!
+        startActivity(Intent(this,HomeActivity::class.java))
+        finish()
     }
 }
