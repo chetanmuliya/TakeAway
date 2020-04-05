@@ -12,16 +12,16 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="in.ecommerce.takeaway.view.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_menu"
+        android:name="in.ecommerce.takeaway.view.ui.menu.MenuFragment"
+        android:label="@string/menu_category"
+        tools:layout="@layout/fragment_menu" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="in.ecommerce.takeaway.view.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_food_detail"
+        android:name="in.ecommerce.takeaway.view.ui.fooddetail.FoodDetailFragment"
+        android:label="@string/menu_food_detail"
+        tools:layout="@layout/fragment_food_detail" />
 
     <fragment
         android:id="@+id/nav_tools"
@@ -36,8 +36,8 @@
         tools:layout="@layout/fragment_share" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="in.ecommerce.takeaway.view.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        android:id="@+id/nav_food_list"
+        android:name="in.ecommerce.takeaway.view.ui.foodlist.FoodListFragment"
+        android:label="@string/menu_food_list"
+        tools:layout="@layout/fragment_foodlist" />
 </navigation>
