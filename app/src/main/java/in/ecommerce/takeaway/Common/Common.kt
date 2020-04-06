@@ -5,6 +5,7 @@ import `in`.ecommerce.takeaway.Model.FoodModel
 import `in`.ecommerce.takeaway.Model.UserModel
 
 object Common {
+    val COMMENT_REF: String ="Comments"
     var FOOD_SELECTED: FoodModel?=null
     var CATEGORY_SELECTED: CategoryModel?=null
     val CATEGORY_REF: String="Category"
