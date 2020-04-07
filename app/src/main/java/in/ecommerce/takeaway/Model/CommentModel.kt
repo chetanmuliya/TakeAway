@@ -5,6 +5,6 @@ class CommentModel {
     var name:String?=null
     var date:String?=null
     var comment:String?=null
-    var commentTimeStamp:Map<String,Any>?=null
+    var commentTimeStamp:HashMap<String,Any>?=null
     var ratingValue:Float=0.toFloat()
 }

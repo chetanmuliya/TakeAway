@@ -26,8 +26,11 @@ class MyCommentAdapter(internal var context:Context,internal var commentList:Lis
     }
 
     override fun onBindViewHolder(holder: MyCommentAdapter.MyViewHolder, position: Int) {
-        holder.txt_comment_name!!.setText(commentList.get(position).name)
-        //val timestamp  = commentList.get(position).date!!["timeStamp"]!!.toString().toLong()
+        holder.txt_comment_name!!.text = commentList.get(position).name
+        val timestamp  = commentList.get(position).commentTimeStamp!!["timeStamp"]!!.toString().toLong()
+        holder.txt_comment_date!!.text = commentList.get(position).name
+        holder.txt_comment!!.text = commentList.get(position).comment
+        holder.ratingBar!!.rating = commentList.get(position).ratingValue
     }
 
     class MyViewHolder(itemview:View):RecyclerView.ViewHolder(itemview) {

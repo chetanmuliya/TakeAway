@@ -4,6 +4,7 @@ import `in`.ecommerce.takeaway.Common.Common
 import `in`.ecommerce.takeaway.Model.CommentModel
 import `in`.ecommerce.takeaway.Model.FoodModel
 import `in`.ecommerce.takeaway.R
+import `in`.ecommerce.takeaway.view.ui.comment.CommentFragment
 import android.app.AlertDialog
 import android.media.Rating
 import android.os.Bundle
@@ -142,6 +143,11 @@ class FoodDetailFragment : Fragment() {
         btnRating!!.setOnClickListener(View.OnClickListener {
             showDialogRating()
         })
+
+        btnShowComment!!.setOnClickListener {
+            val commentFragment = CommentFragment.getInstance()
+            commentFragment.show(activity!!.supportFragmentManager,"CommentFragment")
+        }
     }
 
     private fun showDialogRating() {
