@@ -62,6 +62,9 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //room persistance
+    implementation 'androidx.room:room-rxjava2:2.2.0-rc01'
+    annotationProcessor 'androidx.room:room-compiler:2.2.0-rc01'
     //loading dialog
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     //

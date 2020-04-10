@@ -228,7 +228,7 @@ class FoodDetailFragment : Fragment(), TextWatcher {
         }
     }
 
-    private fun displayAllAddOn() {
+    private fun  displayAllAddOn() {
         if (Common.FOOD_SELECTED!!.addon.size>0){
             chip_group_addon!!.clearCheck()
             chip_group_addon!!.removeAllViews()
@@ -319,7 +319,7 @@ class FoodDetailFragment : Fragment(), TextWatcher {
                     if (b){
                         if (Common.FOOD_SELECTED!!.userSelectedAddon==null)
                             Common.FOOD_SELECTED!!.userSelectedAddon = ArrayList()
-                            Common.FOOD_SELECTED!!.userSelectedAddon!!.add(addonModel)
+                        Common.FOOD_SELECTED!!.userSelectedAddon!!.add(addonModel)
                     }
                 }
                 chip_group_addon!!.addView(chip)
