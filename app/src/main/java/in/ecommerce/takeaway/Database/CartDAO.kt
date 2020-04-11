@@ -22,7 +22,7 @@ interface CartDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertOrReplaceAll(vararg cartItem: CartItem):Completable
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun updateCart(cartItem: CartItem):Single<Int>
 
     @Delete

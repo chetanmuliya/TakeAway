@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName="Cart")
 class CartItem {
 
+
+
     @PrimaryKey
     @NonNull
     @ColumnInfo(name="foodId")
@@ -15,6 +17,9 @@ class CartItem {
 
     @ColumnInfo(name="foodName")
     var foodName:String?=null
+
+    @ColumnInfo(name="foodImage")
+    var foodImage:String?=null
 
     @ColumnInfo(name="foodPrice")
     var foodPrice:Double=0.0

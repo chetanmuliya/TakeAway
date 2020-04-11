@@ -26,6 +26,12 @@ class FoodListFragment : Fragment() {
     var layoutAnimationController:LayoutAnimationController?=null
     var adapter:MyFoodListAdapter?=null
 
+
+    override fun onStop() {
+        super.onStop()
+        if (adapter!=null)
+            adapter!!.onStop()
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

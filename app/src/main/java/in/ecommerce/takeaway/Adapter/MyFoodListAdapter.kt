@@ -2,7 +2,12 @@ package `in`.ecommerce.takeaway.Adapter
 
 import `in`.ecommerce.takeaway.Callback.IRecyclerItemClickListener
 import `in`.ecommerce.takeaway.Common.Common
+import `in`.ecommerce.takeaway.Database.CartDataSource
+import `in`.ecommerce.takeaway.Database.CartDatabase
+import `in`.ecommerce.takeaway.Database.CartItem
+import `in`.ecommerce.takeaway.Database.LocalCartDataSource
 import `in`.ecommerce.takeaway.EventBus.CategoryClick
+import `in`.ecommerce.takeaway.EventBus.CounterCartEvent
 import `in`.ecommerce.takeaway.EventBus.FoodItemClick
 import `in`.ecommerce.takeaway.Model.FoodModel
 import `in`.ecommerce.takeaway.Model.PopularCategoriesModel
@@ -13,13 +18,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
 
 class MyFoodListAdapter(internal var context:Context,internal var foodmodels: List<FoodModel>)
     :RecyclerView.Adapter<MyFoodListAdapter.MyViewHolder>(){
+
+    private val composiDisposable:CompositeDisposable
+    private val carDataSources:CartDataSource
+
+    init {
+        composiDisposable = CompositeDisposable()
+        carDataSources = LocalCartDataSource(CartDatabase.getInstance(context).cartDAO())
+    }
 
     inner class MyViewHolder(itemview:View):RecyclerView.ViewHolder(itemview),
         View.OnClickListener {
@@ -74,6 +92,40 @@ class MyFoodListAdapter(internal var context:Context,internal var foodmodels: Li
             }
 
         })
+
+        //on carticon clicked
+        holder.img_cart!!.setOnClickListener{
+            val cartItem = CartItem()
+            cartItem.uid = Common.current_user!!.uid
+            cartItem.userPhone = Common.current_user!!.phone
+
+            cartItem.foodId = foodmodels.get(position).id!!
+            cartItem.foodName = foodmodels.get(position).name!!
+            cartItem.foodImage = foodmodels.get(position).image!!
+            cartItem.foodPrice = foodmodels.get(position).price!!.toDouble()
+            cartItem.foodQuantity =1
+            cartItem.foodExtraPrice = 0.0
+            cartItem.foodAddon = "Default"
+            cartItem.foodSize = "Default"
+
+            composiDisposable.add(carDataSources.insertOrReplaceAll(cartItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    Toast.makeText(context,"Add to Cart success",Toast.LENGTH_LONG).show()
+                    //notify homeactivty
+                    EventBus.getDefault().postSticky(CounterCartEvent(true))
+                },{
+                    Toast.makeText(context,"[INSER CART]"+it.message,Toast.LENGTH_LONG).show()
+                }))
+        }
+
+
+    }
+    fun onStop(){
+        if(composiDisposable != null){
+            composiDisposable.clear()
+        }
     }
     /*override fun getItemViewType(position: Int): Int {
         return if(foodmodels.size==1)
