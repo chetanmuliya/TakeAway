@@ -36,4 +36,13 @@ class LocalCartDataSource(private val carDAO:CartDAO):CartDataSource {
     override fun cleanCart(uid: String): Single<Int> {
         return carDAO.cleanCart(uid)
     }
+
+    override fun getItemsWithAllOptionsInCart(
+        uid: String,
+        foodid: String,
+        foodsize: String,
+        foodAddon: String
+    ): Single<CartItem> {
+        return carDAO.getItemWithAllOptionsInCart(uid,foodid,foodsize,foodAddon)
+    }
 }

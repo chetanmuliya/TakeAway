@@ -126,7 +126,7 @@ class HomeActivity : AppCompatActivity() {
               }
 
               override fun onError(e: Throwable) {
-                  Toast.makeText(this@HomeActivity,"[INSER CART]"+e.message,Toast.LENGTH_LONG).show()
+                  Toast.makeText(this@HomeActivity,"[INSERT CART]"+e.message,Toast.LENGTH_LONG).show()
               }
 
           })

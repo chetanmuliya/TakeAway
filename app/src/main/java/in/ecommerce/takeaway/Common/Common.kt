@@ -1,8 +1,6 @@
 package `in`.ecommerce.takeaway.Common
 
-import `in`.ecommerce.takeaway.Model.CategoryModel
-import `in`.ecommerce.takeaway.Model.FoodModel
-import `in`.ecommerce.takeaway.Model.UserModel
+import `in`.ecommerce.takeaway.Model.*
 import java.lang.StringBuilder
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -16,6 +14,27 @@ object Common {
             return finalPrice.replace(".",",")
         }else
             return "0,00"
+    }
+
+    fun calculateExtraPrice(userSelectedSize: SizeModel?, userSelectedAddon: MutableList<AddonModel>?): Double {
+
+        var result:Double=0.0
+
+        if(userSelectedSize==null && userSelectedAddon==null)
+            return 0.0
+        else if(userSelectedSize==null){
+            for (addonModel in userSelectedAddon!!)
+                result += addonModel.price!!.toDouble()
+            return result
+        }else if(userSelectedAddon == null){
+            result = userSelectedSize!!.price.toDouble()
+            return result
+        }else{
+            result = userSelectedSize!!.price.toDouble()
+            for (addonModel in userSelectedAddon!!)
+                result += addonModel.price!!.toDouble()
+            return result
+        }
     }
 
     val COMMENT_REF: String ="Comments"
