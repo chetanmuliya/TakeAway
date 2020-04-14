@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_category" />
         <item
-            android:id="@+id/nav_tools"
+            android:id="@+id/nav_cart"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/menu_tools" />
+            android:title="@string/menu_cart" />
     </group>
 
     <item android:title="Communicate">

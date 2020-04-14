@@ -7,6 +7,7 @@ import `in`.ecommerce.takeaway.Database.LocalCartDataSource
 import `in`.ecommerce.takeaway.EventBus.CategoryClick
 import `in`.ecommerce.takeaway.EventBus.CounterCartEvent
 import `in`.ecommerce.takeaway.EventBus.FoodItemClick
+import `in`.ecommerce.takeaway.EventBus.HideCartFab
 import `in`.ecommerce.takeaway.R
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -50,8 +51,7 @@ class HomeActivity : AppCompatActivity() {
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_cart)
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
@@ -61,7 +61,7 @@ class HomeActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_menu, R.id.nav_food_detail,
-                R.id.nav_tools, R.id.nav_food_list
+                R.id.nav_cart, R.id.nav_food_list
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -111,6 +111,14 @@ class HomeActivity : AppCompatActivity() {
         if(event.isSuccess){
             countCartItem()
         }
+    }
+
+    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    fun hideCartFab(event: HideCartFab){
+        if(event.isHide){
+            fab.hide()
+        }else
+        fab.show()
     }
 
     private fun countCartItem() {
