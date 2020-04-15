@@ -109,4 +109,8 @@ class MyCartAdapter(internal var context:Context,internal var cartList: List<Car
         }
     }
 
+    fun getItemAtPostion(pos: Int): CartItem {
+      return cartList[pos]
+    }
+
 }

@@ -134,7 +134,10 @@ class HomeActivity : AppCompatActivity() {
               }
 
               override fun onError(e: Throwable) {
-                  Toast.makeText(this@HomeActivity,"[INSERT CART]"+e.message,Toast.LENGTH_LONG).show()
+                  if(e.message!!.contains("Query returned empty"))
+                  Toast.makeText(this@HomeActivity,"[Count CART]"+e.message,Toast.LENGTH_LONG).show()
+                  else
+                      fab.count =0;
               }
 
           })
