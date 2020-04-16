@@ -9,6 +9,7 @@ import `in`.ecommerce.takeaway.EventBus.CounterCartEvent
 import `in`.ecommerce.takeaway.EventBus.FoodItemClick
 import `in`.ecommerce.takeaway.EventBus.HideCartFab
 import `in`.ecommerce.takeaway.R
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -22,7 +23,11 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -34,6 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
 
 class HomeActivity : AppCompatActivity() {
 
+    private var drawerLayout: DrawerLayout?=null
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var cartDataSource: CartDataSource
 
@@ -53,7 +59,7 @@ class HomeActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             findNavController(R.id.nav_host_fragment).navigate(R.id.nav_cart)
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -67,7 +73,52 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+        var headerView = navView.getHeaderView(0)
+        var txt_user = headerView.findViewById<TextView>(R.id.txt_user)
+        Common.setSpanString("Hey, ",Common.current_user!!.name!!,txt_user)
+        navView.setNavigationItemSelectedListener(object :NavigationView.OnNavigationItemSelectedListener{
+            override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+
+                 p0.isChecked = true
+                 drawerLayout!!.closeDrawers()
+                if (p0.itemId == R.id.nav_signout){
+                    signOut()
+                }else  if (p0.itemId == R.id.nav_home){
+                    navController.navigate(R.id.nav_home)
+                }else  if (p0.itemId == R.id.nav_cart){
+                    navController.navigate(R.id.nav_cart)
+                }else  if (p0.itemId == R.id.nav_menu){
+                    navController.navigate(R.id.nav_menu)
+                }
+                return true
+            }
+
+        })
+
         countCartItem()
+    }
+
+    private fun signOut() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Sign out")
+            .setMessage("Do you really want to exit?")
+            .setNegativeButton("CANCEL",{dialog, which -> dialog.dismiss() })
+            .setNegativeButton("OK"){dialog, which ->
+
+                Common.FOOD_SELECTED = null;
+                Common.CATEGORY_SELECTED = null;
+                Common.current_user = null;
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(this,MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+
+            }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

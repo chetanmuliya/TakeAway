@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
             if (user != null) {
                 //login
                 checkUserFromFirebase(user)
-                Toast.makeText(this, "Already Login", Toast.LENGTH_LONG).show()
             } else {
                 //not login
                 phoneLogin()

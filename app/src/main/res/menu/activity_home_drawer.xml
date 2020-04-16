@@ -3,29 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/home_group">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/menu_home" />
+    </group>
+    <group android:id="@+id/category_group">
         <item
             android:id="@+id/nav_menu"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_restaurant_menu_black_24dp"
             android:title="@string/menu_category" />
+    </group>
+    <group android:id="@+id/cart_group">
         <item
             android:id="@+id/nav_cart"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_shopping_cart_black_24dp"
             android:title="@string/menu_cart" />
     </group>
+    <group android:id="@+id/user_group">
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/menu_signout" />
+    </group>
 
-    <item android:title="Communicate">
-        <menu>
-
-            <item
-                android:id="@+id/nav_food_list"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/menu_food_list" />
-        </menu>
-    </item>
 
 </menu>
