@@ -31,6 +31,7 @@ class MyCategoryAdapter(internal var context:Context,internal var categoryList: 
         fun setListener(listener: IRecyclerItemClickListener){
             this.listener = listener;
         }
+
         init {
            category_name = itemview.findViewById(R.id.txt_category) as TextView
            category_image = itemview.findViewById(R.id.img_category) as ImageView
